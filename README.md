@@ -218,6 +218,76 @@ Consider the following scenario:
 
 The `SemanticAnalyzer` class is a critical tool in the process of checking and ensuring that the program is semantically correct. By verifying variable declarations, types, and logical consistency, it helps prevent runtime errors related to variable misuse and type incompatibility.
 
+![Tokens](/Figures/errors.png)
 
 # Stage 4: Intermediate Code Generation
 
+The `IntermediateCodeGenerator` class creates intermediate code from an Abstract Syntax Tree (AST). This code is an intermediate step in compiling a program, making it easier to manipulate before converting it to machine code.
+
+## Class Structure
+
+### 1. **Attributes**
+- **temp_counter**: A counter used to generate temporary variable names for intermediate computations. This ensures each temporary variable used in the intermediate code has a unique name.
+- **label_counter**: A counter used to generate unique labels, typically used in control flow statements like loops and conditionals.
+- **ir_code**: A list that stores the generated intermediate code. This list is built as the program is processed and will eventually be returned as the final output.
+
+### 2. **Methods**
+
+#### `__init__(self)`
+Initializes the counters and the `ir_code` list.
+
+#### `generate_temp(self)`
+Generates a new temporary variable name, e.g., `t0`, `t1`, etc.
+
+#### `generate_label(self)`
+Generates a new label name, e.g., `L0`, `L1`, etc.
+
+#### `generate_ir(self, ast)`
+Main method to generate the intermediate code from the AST by visiting each statement.
+
+#### `visit_statement(self, node)`
+Visits different types of statement nodes (if, return, assignment, declaration) and calls the appropriate method for each.
+
+#### `visit_declaration_statement(self, node)`
+Handles variable declarations, generating code to declare and assign values to variables.
+
+#### `visit_if_statement(self, node)`
+Handles `if` statements, generating code for conditional branching.
+
+#### `visit_return_statement(self, node)`
+Handles `return` statements, generating code to return an expression.
+
+#### `visit_assignment_statement(self, node)`
+Handles assignment statements, generating code to assign values to variables.
+
+#### `visit_expression(self, node)`
+Processes expressions (like numbers, variables, or operators) and generates code for them.
+
+
+
+## **Example**
+```cmd
+function main() {
+    x = 5;
+    if (x > 0) {
+        return x;
+    } else {
+        return 0;
+    }
+}
+```
+
+```plaintext
+Intermediate Code: [
+    'declare x', 
+    't0 = 5', 
+    'x = t0', 
+    't1 = x > 0', 
+    'if t1 goto L0', 
+    'goto L1', 
+    'L0:', 
+    'return x', 
+    'goto L1', 
+    'L1:', 
+    'return 0']
+```
