@@ -1,3 +1,8 @@
+# Project Description: Compiler Construction for MiniLang
+
+## Project Overview
+
+In this project, you'll build a compiler for a simple language called **MiniLang**. The goal is to learn how compilers work by creating one yourself, and to understand the key stages involved in turning a program into machine code.
 
 
 
