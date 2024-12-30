@@ -9,7 +9,8 @@ In this project, you'll build a compiler for a simple language called **MiniLang
 2. [Stage 2: Syntax Analysis](#stage-2-syntax-analysis)
 3. [Stage 3: Semantic Analysis](#stage-3-semantic-analysis)
 4. [Stage 4: Intermediate Code Generation](#stage-4-intermediate-code-generation)
-
+5. [Stage 5: Optimization](#stage-5-optimization)
+6. [Stage 6: Target Code Generation](#stage-6-target-code-generation)
 
 # Stage 1: Lexical Analysis 
 
