@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tokenized Code Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .token-type {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tokenized Code Visualization</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Token Type</th>
+                <th>Token Value</th>
+            </tr>
+        </thead>
+        <tbody id="token-table-body">
+            <!-- Tokens will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        // The tokens array with types and values
+        const tokens = [
+            ['KEYWORD', 'function'],
+            ['IDENTIFIER', 'main'],
+            ['DELIMITER', '('],
+            ['DELIMITER', ')'],
+            ['DELIMITER', '{'],
+            ['IDENTIFIER', 'x'],
+            ['OPERATOR', '='],
+            ['NUMBER', '5'],
+            ['DELIMITER', ';'],
+            ['KEYWORD', 'if'],
+            ['DELIMITER', '('],
+            ['IDENTIFIER', 'x'],
+            ['OPERATOR', '>'],
+            ['NUMBER', '10'],
+            ['DELIMITER', ')'],
+            ['DELIMITER', '{'],
+            ['KEYWORD', 'return'],
+            ['IDENTIFIER', 'x'],
+            ['OPERATOR', '+'],
+            ['NUMBER', '80'],
+            ['DELIMITER', ';'],
+            ['DELIMITER', '}'],
+            ['DELIMITER', '}']
+        ];
+
+        // Get the table body element
+        const tableBody = document.getElementById('token-table-body');
+
+        // Loop through each token and create a table row
+        tokens.forEach(([type, value]) => {
+            const row = document.createElement('tr');
+
+            // Create and append the type cell
+            const typeCell = document.createElement('td');
+            typeCell.textContent = type;
+            row.appendChild(typeCell);
+
+            // Create and append the value cell
+            const valueCell = document.createElement('td');
+            valueCell.textContent = value;
+            row.appendChild(valueCell);
+
+            // Append the row to the table body
+            tableBody.appendChild(row);
+        });
+    </script>
+</body>
+</html>
