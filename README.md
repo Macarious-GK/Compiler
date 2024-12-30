@@ -11,7 +11,6 @@ In this project, you'll build a compiler for a simple language called **MiniLang
 4. [Stage 4: Intermediate Code Generation](#stage-4-intermediate-code-generation)
 
 
-
 # Stage 1: Lexical Analysis 
 
 This script is a simple lexical analyzer for a mini programming language. It identifies and processes tokens such as keywords, variables, numbers, and symbols.
@@ -302,3 +301,87 @@ Intermediate Code: [
     'L1:', 
     'return 0']
 ```
+
+
+# Stage 5: Optimization
+
+
+## Overview
+
+The `OptimizedIntermediateCodeGenerator` class extends the functionality of the `IntermediateCodeGenerator` class. It is responsible for generating optimized intermediate code (IR) from the abstract syntax tree (AST) of a given program. This class enhances the basic IR generation process by applying optimizations to remove redundant code and improve the efficiency of the generated intermediate code.
+
+## Key Features
+
+### 1. **Optimization of Intermediate Code**  
+   The `optimize_ir` method refines the IR by performing the following optimizations:
+   
+   - **Inlining Constant Assignments**: If a variable is assigned a constant value, it is directly used in place of the variable.
+   - **Removing Self-Assignments**: If a variable is assigned its own value (e.g., `x = x`), the assignment is removed, as it has no effect.
+   - **Removing Redundant Gotos**: If there is a `goto` statement that jumps to the next line (which is redundant), it is removed.
+
+### 2. **IR Generation**  
+   The `generate_ir` method first generates the initial intermediate code by calling the `generate_ir` method from the base class `IntermediateCodeGenerator`. Afterward, it applies the optimization process to the generated IR code.
+
+### Example
+
+```plaintext
+Optimized Intermediate Code:
+declare int x
+t0 = 5
+x = t0
+t1 = x > 10
+if t1 goto L0
+goto L1
+L0:
+t2 = x + 1
+return t2
+L1:
+t3 = x - 1
+return t3
+```
+
+
+# Stage 6:  Target Code Generation 
+
+## Overview
+
+The `AssemblyCodeGenerator` class is responsible for converting intermediate code (IR) into assembly-like code. This class translates higher-level instructions into a lower-level format that can be further processed for machine execution. It handles variable declarations, assignments, arithmetic operations, conditional jumps, and return statements, and outputs assembly instructions accordingly.
+
+## Key Features
+
+### 1. **Register Generation**  
+   The `generate_register` method dynamically creates unique register names (e.g., `R0`, `R1`, etc.), which are used for holding intermediate values during the assembly code generation process.
+
+### 2. **IR to Assembly Translation**  
+   The `generate_assembly` method takes the generated IR code and converts it into assembly-like instructions:
+   - **Declarations**: Converts variable declarations into assembly statements.
+   - **Assignments**: Handles simple assignments as well as those involving arithmetic operations.
+   - **Arithmetic Operations**: Translates expressions with `+` and `-` into `LOAD`, `ADD`, and `SUB` instructions.
+   - **Conditional Statements**: Converts `if` conditions into conditional jump instructions (`CMP` and `IFGT`).
+   - **Unconditional Jumps**: Converts `goto` statements into `GOTO` instructions.
+   - **Return Statements**: Translates return statements into `RETURN` instructions.
+   - **Labels**: Adds labels directly to the assembly code.
+
+### Example
+
+```plaintext
+Generated Assembly Code:
+declare int x
+LOAD 5, t0
+LOAD t0, x
+LOAD x > 10, t1
+CMP if t1, 10
+IFGT L0
+GOTO L1
+L0:
+LOAD x, R0
+ADD R0, 1
+STORE R0, t2
+RETURN t2
+L1:
+LOAD x, R1
+SUB R1, 1
+STORE R1, t3
+RETURN t3
+```
+
