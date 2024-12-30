@@ -4,6 +4,12 @@
 
 In this project, you'll build a compiler for a simple language called **MiniLang**. The goal is to learn how compilers work by creating one yourself, and to understand the key stages involved in turning a program into machine code.
 
+## Table of Contents
+1. [Stage 1: Lexical Analysis](#stage-1-lexical-analysis)
+2. [Stage 2: Syntax Analysis](#stage-2-syntax-analysis)
+3. [Stage 3: Semantic Analysis](#stage-3-semantic-analysis)
+4. [Stage 4: Intermediate Code Generation](#stage-4-intermediate-code-generation)
+
 
 
 # Stage 1: Lexical Analysis 
